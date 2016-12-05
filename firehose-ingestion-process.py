@@ -1,7 +1,7 @@
 import traceback
 import boto3
 import json
-#Firehose data ingestion
+#Firehose data ingestion using AWS pipeline
 #pip install boto3
 
 #M1
