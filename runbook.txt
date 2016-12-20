@@ -14,3 +14,4 @@ curl -XPOST search-es-dwc-clickstream-6rmy5wyto5g5eex6fot2oroaye.us-east-1.es.am
 
 
 curl -XGET search-es-dwc-clickstream-6rmy5wyto5g5eex6fot2oroaye.us-east-1.es.amazonaws.com/_search?pretty=true&q={'matchAll':{''}}
+curl -XGET search-es-dwc-clickstream-6rmy5wyto5g5eex6fot2oroaye.us-east-1.es.amazonaws.com/_search?pretty=true&q=user_id:17392
