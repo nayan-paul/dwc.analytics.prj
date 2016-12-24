@@ -15,3 +15,25 @@ curl -XPOST search-es-dwc-clickstream-6rmy5wyto5g5eex6fot2oroaye.us-east-1.es.am
 
 curl -XGET search-es-dwc-clickstream-6rmy5wyto5g5eex6fot2oroaye.us-east-1.es.amazonaws.com/_search?pretty=true&q={'matchAll':{''}}
 curl -XGET search-es-dwc-clickstream-6rmy5wyto5g5eex6fot2oroaye.us-east-1.es.amazonaws.com/_search?pretty=true&q=user_id:17392
+
+list all indexes
+#################################################################################################
+curl 'search-es-dwc-clickstream-6rmy5wyto5g5eex6fot2oroaye.us-east-1.es.amazonaws.com/_cat/indices?v'
+
+delete all index
+####################################################################################
+curl -XDELETE 'search-es-dwc-clickstream-6rmy5wyto5g5eex6fot2oroaye.us-east-1.es.amazonaws.com/clicks/click/_query' -d   '{  "query":   { "match_all": {}}  }'
+curl -XDELETE 'search-es-dwc-clickstream-6rmy5wyto5g5eex6fot2oroaye.us-east-1.es.amazonaws.com/clicks/'
+curl -XDELETE 'search-es-dwc-clickstream-6rmy5wyto5g5eex6fot2oroaye.us-east-1.es.amazonaws.com/clicks/_mapping/click'
+curl -XDELETE 'search-es-dwc-clickstream-6rmy5wyto5g5eex6fot2oroaye.us-east-1.es.amazonaws.com/clicks/click/_mapping'
+
+create index with type
+#####################################################################################
+find existing mapping:
+curl -XGET 'search-es-dwc-clickstream-6rmy5wyto5g5eex6fot2oroaye.us-east-1.es.amazonaws.com/clicks/_mapping/click'
+
+create type without mapping:
+curl -XPUT 'search-es-dwc-clickstream-6rmy5wyto5g5eex6fot2oroaye.us-east-1.es.amazonaws.com/clicks/'
+
+create type with mapping
+curl -XPUT search-es-dwc-clickstream-6rmy5wyto5g5eex6fot2oroaye.us-east-1.es.amazonaws.com/clicks/_mapping/click -d '{	"properties":{		"click_id": {"type":"string"},		"click_pid":{"type":"string"},		"timestamp":{"type":"date","format":"yyyy-MM-dd HH:mm:ss"},		"event_type":{"type":"integer"},		"unique_click":{"type":"boolean"},		"click_visit_pid":{"type":"string"},		"click_lander_id":{"type":"long"},		"session_id":{"type":"string"},		"user_id":{"type":"string"},		"unique_user":{"type":"boolean"},		"unique_ctr":{"type":"boolean"},		"sub_id":{"type":"string"},		"destination_type":{"type":"integer"},		"destination_id":{"type":"string"},		"link_position":{"type":"short"},		"filter_type":{"type":"byte"},		"filter_id":{"type":"string"},		"referral_domain":{"type":"string"},		"redirect_link":{"type":"string"},		"redirect_destination":{"type":"string"},		"campaign_id":{"type":"long"},		"account_id":{"type":"long"},		"traffic_source_id":{"type":"long"},		"traffic_source_account_id":{"type":"long"},		"vendor_id":{"type":"long"},		"path_type":{"type":"byte"},		"path_id":{"type":"long"},		"rule_id":{"type":"long"},		"tsv_cid":{"type":"string"},		"tsv_cost":{"type":"double"},		"tsv_1":{"type":"string"},		"tsv_2":{"type":"string"},		"tsv_3":{"type":"string"},		"tsv_4":{"type":"string"},		"tsv_5":{"type":"string"},		"tsv_6":{"type":"string"},		"tsv_7":{"type":"string"},		"tsv_8":{"type":"string"},		"tsv_9":{"type":"string"},		"tsv_10":{"type":"string"},		"ip_address":{"type":"ip"},		"connection_id":{"type":"string"},		"isp_carrier":{"type":"string"},		"mobile_carrier":{"type":"string"},		"connection_type":{"type":"string"},		"country":{"type":"string"},		"county_type":{"type":"string"},		"state":{"type":"string"},		"city":{"type":"string"},		"device_id":{"type":"string"},		"user_agent":{"type":"string"},		"os":{"type":"string"},		"os_version":{"type":"string"},		"browser":{"type":"string"},		"browser_version":{"type":"string"},		"device_category":{"type":"string"},		"screen_resolution":{"type":"string"},		"language":{"type":"string"},		"device_family":{"type":"string"},		"device_model":{"type":"string"},		"device_name":{"type":"string"},		"device_vendor":{"type":"string"},		"device_oem":{"type":"string"},		"conversion":{			"properties":{				"conversion_id":{"type":"string"},				"timestamp":{"type":"date","format":"yyyy-MM-dd HH:mm:ss"},				"transaction_id":{"type":"string"},				"payout":{"type":"double"},				"postback_id":{"type":"long"},				"postback_type":{"type":"byte"},				"is_filtered":{"type":"boolean"}			}		}	}}'
